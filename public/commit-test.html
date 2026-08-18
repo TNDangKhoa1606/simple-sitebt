@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1f1d1b" />
+    <title>Commit Test — Simple Site</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="ambient"></div>
+    <main class="card commit-card">
+      <p class="eyebrow">CHANGE DELIVERY CHECK</p>
+      <div class="commit-hero">
+        <div>
+          <h1>Commit đã lên</h1>
+          <p class="subtitle">
+            Nếu bạn đang thấy trang này, thay đổi giao diện mới đã được build và
+            phục vụ thành công.
+          </p>
+        </div>
+        <span class="release-badge">INT-DEV-20260813-04</span>
+      </div>
+
+      <section class="commit-grid" aria-label="Thông tin kiểm tra">
+        <article class="commit-panel">
+          <p class="label">Trạng thái</p>
+          <p class="commit-state"><span class="status-dot"></span> Sẵn sàng</p>
+        </article>
+        <article class="commit-panel">
+          <p class="label">Thời gian tải trang</p>
+          <p class="commit-value" id="loadedAt">Đang xác định…</p>
+        </article>
+        <article class="commit-panel">
+          <p class="label">Kết nối trình duyệt</p>
+          <p class="commit-value" id="connectionState">Đang kiểm tra…</p>
+        </article>
+      </section>
+
+      <div class="commit-actions">
+        <button type="button" id="refreshButton">Tải lại để kiểm tra</button>
+        <a href="/deploy-test.html">Kiểm tra hệ thống</a>
+      </div>
+
+      <nav class="page-nav">
+        <a href="/">← Về trang chính</a>
+      </nav>
+    </main>
+    <script src="/commit-test.js" defer></script>
+  </body>
+</html>

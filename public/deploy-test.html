@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deploy Test — Simple Site</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="ambient"></div>
+    <main class="card">
+      <p class="eyebrow">DEPLOYMENT VERIFICATION</p>
+      <h1>Deploy Test</h1>
+      <p class="subtitle">
+        This page helps verify that a new deployment is working correctly. It
+        checks connectivity to backend APIs, the database, and Redis.
+      </p>
+
+      <section class="checks" id="checks">
+        <div class="check-item" data-check="health">
+          <span class="check-label">Backend Health</span>
+          <span class="check-status">⏳</span>
+        </div>
+        <div class="check-item" data-check="db">
+          <span class="check-label">PostgreSQL</span>
+          <span class="check-status">⏳</span>
+        </div>
+        <div class="check-item" data-check="redis">
+          <span class="check-label">Redis Cache</span>
+          <span class="check-status">⏳</span>
+        </div>
+        <div class="check-item" data-check="env">
+          <span class="check-label">Environment</span>
+          <span class="check-status">⏳</span>
+        </div>
+      </section>
+
+      <section class="deploy-info" id="deployInfo">
+        <h2>Deployment Info</h2>
+        <table>
+          <tbody id="infoBody"></tbody>
+        </table>
+      </section>
+
+      <p class="note" id="status">Running deployment checks…</p>
+
+      <nav class="page-nav">
+        <a href="/">← Back to Home</a>
+      </nav>
+    </main>
+    <script src="/deploy-test.js" defer></script>
+  </body>
+</html>

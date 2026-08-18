@@ -1,0 +1,391 @@
+:root {
+  --bg: #f4efe6;
+  --ink: #1f1d1b;
+  --accent: #cd5c2f;
+  --accent-soft: #f4b183;
+  --card: rgba(255, 255, 255, 0.74);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: 'Trebuchet MS', 'Gill Sans', sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%, #ffe6cf 0%, transparent 28%),
+    radial-gradient(circle at 90% 20%, #f7c3a6 0%, transparent 30%),
+    radial-gradient(circle at 70% 80%, #f6d8a8 0%, transparent 24%), var(--bg);
+  color: var(--ink);
+  padding: 2rem 1rem;
+}
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(205, 92, 47, 0.08), transparent 60%);
+  pointer-events: none;
+}
+
+.card {
+  width: min(820px, 92vw);
+  background: var(--card);
+  border: 1px solid rgba(31, 29, 27, 0.12);
+  border-radius: 22px;
+  padding: 2rem;
+  box-shadow: 0 30px 60px rgba(31, 29, 27, 0.14);
+  backdrop-filter: blur(4px);
+  transform: translateY(16px);
+  opacity: 0;
+  animation: reveal 0.7s ease forwards;
+}
+
+.eyebrow {
+  margin: 0;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+h1 {
+  margin: 0.3rem 0 0;
+  font-family: Georgia, serif;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  max-width: 60ch;
+  line-height: 1.5;
+}
+
+.small-subtitle {
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+}
+
+.stats {
+  margin-top: 1.8rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.stats > div {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(31, 29, 27, 0.1);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.label {
+  margin: 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(31, 29, 27, 0.65);
+}
+
+.value {
+  margin: 0.4rem 0 0;
+  font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+  font-weight: 700;
+}
+
+.value.small {
+  font-size: clamp(0.95rem, 3.4vw, 1.2rem);
+}
+
+.note {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: rgba(31, 29, 27, 0.78);
+}
+
+.messages {
+  margin-top: 1.8rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(31, 29, 27, 0.1);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.messages h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.message-form {
+  margin-top: 0.8rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.6rem;
+}
+
+.message-form input {
+  border: 1px solid rgba(31, 29, 27, 0.25);
+  border-radius: 10px;
+  padding: 0.72rem 0.85rem;
+  font-size: 0.96rem;
+  font-family: inherit;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.message-form button {
+  border: 0;
+  border-radius: 10px;
+  padding: 0.72rem 1.05rem;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.messages-list {
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.messages-list li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(31, 29, 27, 0.08);
+  padding-bottom: 0.45rem;
+}
+
+.messages-list li .text {
+  overflow-wrap: anywhere;
+}
+
+.messages-list li .saved-at {
+  font-size: 0.8rem;
+  color: rgba(31, 29, 27, 0.65);
+}
+
+.messages-list li.empty {
+  border-bottom: 0;
+  color: rgba(31, 29, 27, 0.65);
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page navigation */
+.page-nav {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(31, 29, 27, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.page-nav a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.page-nav a:hover {
+  text-decoration: underline;
+}
+
+/* Deploy check items */
+.checks {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.check-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(31, 29, 27, 0.1);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+}
+
+.check-label {
+  font-weight: 600;
+}
+
+.check-status {
+  font-size: 1.2rem;
+}
+
+/* Deploy info table */
+.deploy-info {
+  margin-top: 1.5rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(31, 29, 27, 0.1);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.deploy-info h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.1rem;
+}
+
+.deploy-info table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.deploy-info td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid rgba(31, 29, 27, 0.08);
+  font-size: 0.9rem;
+}
+
+.deploy-info .info-key {
+  font-weight: 600;
+  color: rgba(31, 29, 27, 0.7);
+  width: 40%;
+}
+
+.deploy-info .info-value {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+/* Commit delivery marker */
+.commit-card {
+  overflow: hidden;
+  position: relative;
+}
+
+.commit-card::before {
+  content: '';
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  top: -130px;
+  right: -80px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  opacity: 0.45;
+}
+
+.commit-hero {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.release-badge {
+  flex: 0 0 auto;
+  border: 1px solid rgba(205, 92, 47, 0.3);
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.commit-grid {
+  margin-top: 1.8rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.commit-panel {
+  min-height: 118px;
+  border: 1px solid rgba(31, 29, 27, 0.1);
+  border-radius: 14px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.commit-state,
+.commit-value {
+  margin: 0.65rem 0 0;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.65rem;
+  margin-right: 0.25rem;
+  border-radius: 50%;
+  background: #2f9e44;
+  box-shadow: 0 0 0 5px rgba(47, 158, 68, 0.14);
+}
+
+.commit-actions {
+  margin-top: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.commit-actions button {
+  border: 0;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.commit-actions a {
+  color: var(--ink);
+  font-weight: 700;
+  text-underline-offset: 0.2rem;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .message-form {
+    grid-template-columns: 1fr;
+  }
+
+  .commit-hero {
+    display: block;
+  }
+
+  .release-badge {
+    display: inline-block;
+    margin-top: 0.6rem;
+  }
+
+  .commit-grid {
+    grid-template-columns: 1fr;
+  }
+}

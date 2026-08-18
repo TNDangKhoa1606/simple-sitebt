@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Site</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="ambient"></div>
+    <main class="card">
+      <p class="eyebrow">NESTJS + POSTGRESQL + REDIS</p>
+      <h1>TEST25 Simple Site</h1>
+      <p class="subtitle">
+        Every time this page loads, a visit is persisted to PostgreSQL and
+        cached in Redis.
+      </p>
+
+      <section class="stats" aria-live="polite">
+        <div>
+          <p class="label">Total Visits</p>
+          <p class="value" id="visits">...</p>
+        </div>
+        <div>
+          <p class="label">Last Visit</p>
+          <p class="value small" id="lastVisit">...</p>
+        </div>
+      </section>
+
+      <section class="messages">
+        <h2>Database Check</h2>
+        <p class="subtitle small-subtitle">
+          Enter text, save it, then refresh. If it stays here, PostgreSQL is
+          working.
+        </p>
+        <form id="messageForm" class="message-form">
+          <input
+            id="messageInput"
+            name="text"
+            maxlength="280"
+            placeholder="Type something to persist..."
+            required
+          />
+          <button type="submit">Save</button>
+        </form>
+        <ul id="messagesList" class="messages-list"></ul>
+      </section>
+
+      <p class="note" id="status">Loading data from /api/stats</p>
+
+      <nav class="page-nav">
+        <a href="/commit-test.html">Commit Test →</a>
+        <a href="/deploy-test.html">Deploy Test →</a>
+      </nav>
+    </main>
+    <script src="/site.js" defer></script>
+  </body>
+</html>
