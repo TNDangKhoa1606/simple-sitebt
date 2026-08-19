@@ -26,66 +26,21 @@ the app. Existing PostgreSQL `POSTGRES_*` variables remain supported when
 
 ## Run with Docker Compose
 
-Each database is a Compose profile, so only the selected backend is started.
-The `.env` values must name the Compose service as `DB_HOST`.
-
-PostgreSQL:
-
-```dotenv
-DB_TYPE=postgres
-DB_HOST=postgres
-DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=postgres
-```
+The repo ships with a production-ready `docker-compose.yml` that starts the web
+container, PostgreSQL, and Redis on the same Compose network.
 
 ```bash
-docker compose --profile postgres up -d
+docker compose up --build
 ```
 
-MySQL:
+The web container reads database and Redis settings from `.env`, but the
+Compose file overrides the container-side hostnames to `db` and `redis` so the
+services can resolve each other inside Docker.
 
-```dotenv
-DB_TYPE=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=root
-```
+For local `npm start`, keep `.env` pointing at `localhost` for both DB and
+Redis. Compose injects the Docker hostnames at runtime, so the same app code
+works in both environments.
 
-```bash
-docker compose --profile mysql up -d
-```
-
-MongoDB:
-
-```dotenv
-DB_TYPE=mongodb
-DB_HOST=mongodb
-DB_PORT=27017
-DB_USER=root
-DB_PASSWORD=root
-```
-
-```bash
-docker compose --profile mongodb up -d
-```
-
-ClickHouse:
-
-```dotenv
-DB_TYPE=clickhouse
-DB_HOST=clickhouse
-DB_PORT=8123
-DB_USER=default
-DB_PASSWORD=
-```
-
-```bash
-docker compose --profile clickhouse up -d
-```
-
-The app may restart once while the selected database finishes becoming ready.
 Open <http://localhost:3000> after the containers are healthy.
 
 ## Run locally

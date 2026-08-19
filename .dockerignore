@@ -1,0 +1,16 @@
+node_modules
+dist
+coverage
+.git
+.gitignore
+.env
+.env.*
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+test
+**/*.spec.ts
+**/*.e2e-spec.ts
+.vscode
+.idea
