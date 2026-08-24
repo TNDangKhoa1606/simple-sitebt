@@ -1,0 +1,232 @@
+
+<style>
+:root{
+  color-scheme:dark;
+  --text-primary:#f8fafc;
+  --text-secondary:#d1d5db;
+  --text-muted:#9ca3af;
+  --surface-1:#111827;
+  --surface-2:#171717;
+  --border:#404040;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:#000}
+body{font-family:var(--font-sans,Arial,sans-serif);color:var(--text-primary)}
+.wrap{width:min(100%,820px);margin:0 auto;padding:1.5rem 1rem}
+.legend{display:flex;gap:20px;margin-bottom:20px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--text-secondary)}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.section{margin-bottom:10px}
+.section-label{font-size:12px;font-weight:500;letter-spacing:.06em;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;padding-left:2px}
+.cards{display:flex;flex-direction:column;gap:6px}
+.card{border:0.5px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;background:var(--surface-2)}
+.card.demo{border-left:3px solid #1D9E75;border-radius:0 10px 10px 0}
+.card.skim{border-left:3px solid #B4B2A9;border-radius:0 10px 10px 0}
+.card.done{opacity:.5}
+.card.current{border-left:3px solid #378ADD;border-radius:0 10px 10px 0}
+.num{font-size:13px;font-weight:500;color:var(--text-muted);min-width:18px;padding-top:1px}
+.body{flex:1;min-width:0}
+.title-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:3px}
+.title{font-size:16px;font-weight:500;color:var(--text-primary)}
+.badge{font-size:12px;padding:2px 7px;border-radius:20px;font-weight:500;white-space:nowrap}
+.b-demo{background:#E1F5EE;color:#085041}
+.b-skim{background:#F1EFE8;color:#5F5E5A}
+.b-done{background:#E6F1FB;color:#0C447C}
+.b-cur{background:#E6F1FB;color:#185FA5}
+[data-mode="dark"] .b-demo{background:#085041;color:#9FE1CB}
+[data-mode="dark"] .b-skim{background:#444441;color:#D3D1C7}
+[data-mode="dark"] .b-done{background:#0C447C;color:#B5D4F4}
+[data-mode="dark"] .b-cur{background:#0C447C;color:#B5D4F4}
+.b-sec{background:#FCEBEB;color:#791F1F}
+[data-mode="dark"] .b-sec{background:#791F1F;color:#F7C1C1}
+.demo-txt{font-size:14px;color:var(--text-secondary);line-height:1.55}
+.demo-txt code{font-family:var(--font-mono);font-size:13px;background:var(--surface-1);padding:1px 5px;border-radius:4px;color:var(--text-primary)}
+.divider{border:none;border-top:0.5px solid var(--border);margin:16px 0}
+</style>
+<div class="wrap">
+  <div class="legend">
+    <div class="leg"><div class="dot" style="background:#1D9E75"></div>Demo được cho sếp</div>
+    <div class="leg"><div class="dot" style="background:#B4B2A9"></div>Lướt qua — hiểu khái niệm</div>
+    <div class="leg"><div class="dot" style="background:#378ADD"></div>Đang học</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Xong rồi ✓</div>
+    <div class="cards">
+      <div class="card done">
+        <div class="num">—</div>
+        <div class="body">
+          <div class="title-row"><span class="title">EC2 lifecycle / Architecture</span><span class="badge b-done">✅ Done</span></div>
+        </div>
+      </div>
+      <div class="card done">
+        <div class="num">—</div>
+        <div class="body">
+          <div class="title-row"><span class="title">AMI</span><span class="badge b-done">✅ Done</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">Đang học</div>
+    <div class="cards">
+      <div class="card done">
+        <div class="num">3</div>
+        <div class="body">
+          <div class="title-row">
+            <span class="title">Instance Types / Nitro</span>
+            <span class="badge b-done">✅ Done</span>
+            <span class="badge b-skim">Lướt</span>
+          </div>
+          <div class="demo-txt">Không cần lab sâu. Mở console so sánh family, chạy <code>lscpu</code> <code>lsblk</code> trên t3.micro hiện tại.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">Demo được — học sâu</div>
+    <div class="cards">
+
+      <div class="card current">
+        <div class="num">4</div>
+        <div class="body">
+          <div class="title-row">
+            <span class="title">EC2 Networking</span>
+            <span class="badge b-cur">← Đang học</span>
+          </div>
+          <div class="demo-txt">Tạo SG sai → test port mở/đóng bằng <code>nc</code> hoặc <code>telnet</code> → sửa lại → verify. Demo: "đây là lỗi SG phổ biến nhất trên prod."</div>
+        </div>
+      </div>
+
+      <div class="card demo">
+        <div class="num">5</div>
+        <div class="body">
+          <div class="title-row">
+            <span class="title">IAM Role / Instance Profile</span>
+            <span class="badge b-demo">Demo</span>
+            <span class="badge b-sec">Security</span>
+          </div>
+          <div class="demo-txt">Tạo role tối thiểu → attach vào EC2 → <code>aws sts get-caller-identity</code> → thử API allowed/denied → sửa policy → verify lại.</div>
+        </div>
+      </div>
+
+      <div class="card demo done">
+        <div class="num">6</div>
+        <div class="body">
+          <div class="title-row">
+            <span class="title">Metadata / IMDS</span>
+            <span class="badge b-done">✅ Done</span>
+            <span class="badge b-sec">Security</span>
+          </div>
+          <div class="demo-txt"><code>curl 169.254.169.254</code> → lấy IMDSv2 token → query creds → bật <code>HttpTokens=required</code> → thử lại IMDSv1 → fail. Demo SSRF chain concept.</div>
+        </div>
+      </div>
+
+      <div class="card demo">
+        <div class="num">7</div>
+        <div class="body">
+          <div class="title-row">
+            <span class="title">EBS / Storage</span>
+            <span class="badge b-demo">Demo</span>
+          </div>
+          <div class="demo-txt">Tạo volume → attach → <code>lsblk</code> → format → mount → snapshot → restore → encrypt. Demo: "unencrypted snapshot là finding thường gặp nhất."</div>
+        </div>
+      </div>
+
+      <div class="card demo">
+        <div class="num">8</div>
+        <div class="body">
+          <div class="title-row">
+            <span class="title">User Data / cloud-init</span>
+            <span class="badge b-demo">Demo</span>
+            <span class="badge b-sec">Security</span>
+          </div>
+          <div class="demo-txt">Launch EC2 với script bootstrap → đọc <code>/var/log/cloud-init-output.log</code> → demo: "plaintext secret trong User Data = finding."</div>
+        </div>
+      </div>
+
+      <div class="card demo">
+        <div class="num">9</div>
+        <div class="body">
+          <div class="title-row">
+            <span class="title">EC2 API / AWS CLI</span>
+            <span class="badge b-demo">Demo</span>
+          </div>
+          <div class="demo-txt">Học xuyên suốt — mọi action trên console đều làm lại bằng CLI. <code>describe-instances</code> <code>run-instances</code> <code>create-image</code>... Không chờ đến cuối mới học.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">Lướt qua — không cần lab sâu</div>
+    <div class="cards">
+
+      <div class="card skim">
+        <div class="num">10</div>
+        <div class="body">
+          <div class="title-row"><span class="title">Linux internals trên EC2</span><span class="badge b-skim">Lướt</span></div>
+          <div class="demo-txt">Chỉ EC2-specific: cloud-init, SSM agent, NVMe device, hostname, journalctl. Không cần kernel deep.</div>
+        </div>
+      </div>
+
+      <div class="card skim">
+        <div class="num">11</div>
+        <div class="body">
+          <div class="title-row"><span class="title">Monitoring / Troubleshooting</span><span class="badge b-skim">Lướt</span></div>
+          <div class="demo-txt">EC2 status checks, CloudWatch CPU/Network basics. Đủ để debug khi lab lỗi.</div>
+        </div>
+      </div>
+
+      <div class="card skim">
+        <div class="num">12</div>
+        <div class="body">
+          <div class="title-row"><span class="title">Launch Templates</span><span class="badge b-skim">Lướt</span></div>
+          <div class="demo-txt">Tạo 1 template, launch từ template. Hiểu versioning. ~30 phút.</div>
+        </div>
+      </div>
+
+      <div class="card skim">
+        <div class="num">13</div>
+        <div class="body">
+          <div class="title-row"><span class="title">Auto Scaling</span><span class="badge b-skim">Lướt</span></div>
+          <div class="demo-txt">min/max/desired, target tracking policy. Đọc docs, lab sau nếu có thời gian.</div>
+        </div>
+      </div>
+
+      <div class="card skim">
+        <div class="num">14</div>
+        <div class="body">
+          <div class="title-row"><span class="title">Load Balancer (EC2 context)</span><span class="badge b-skim">Lướt</span></div>
+          <div class="demo-txt">ALB/NLB, target group, health check. Chỉ phần liên quan EC2. Học sâu sau ở module ELB riêng.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">Lab tổng hợp cuối</div>
+    <div class="cards">
+      <div class="card demo">
+        <div class="num">15</div>
+        <div class="body">
+          <div class="title-row"><span class="title">EC2 Security / Operations Lab</span><span class="badge b-demo">Demo</span></div>
+          <div class="demo-txt">Custom AMI → Launch Template → EC2 → IMDSv2 required → IAM least privilege → encrypted EBS → restrictive SG → User Data không có secret → Nginx → monitor. Rồi tự audit lại toàn bộ.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
