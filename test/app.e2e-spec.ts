@@ -15,7 +15,7 @@ describe('AppController (e2e)', () => {
         {
           provide: AppService,
           useValue: {
-            getHealth: () => ({ status: 'ok', service: 'simple-site' }),
+            getHealth: () => ({ status: 'ok', service: 'simple-siteB' }),
             getSiteStats: () =>
               Promise.resolve({
                 totalVisits: 1,
@@ -42,7 +42,7 @@ describe('AppController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/api/health')
       .expect(200)
-      .expect({ status: 'ok', service: 'simple-site' });
+      .expect({ status: 'ok', service: 'simple-siteB' });
   });
 
   afterEach(async () => {

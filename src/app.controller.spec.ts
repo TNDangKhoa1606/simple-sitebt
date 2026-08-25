@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 describe('AppController', () => {
   let appController: AppController;
   const appServiceMock = {
-    getHealth: jest.fn(() => ({ status: 'ok', service: 'simple-site' })),
+    getHealth: jest.fn(() => ({ status: 'ok', service: 'simple-siteB' })),
     getSiteStats: jest.fn(() =>
       Promise.resolve({
         totalVisits: 1,
@@ -41,7 +41,7 @@ describe('AppController', () => {
     it('should return app health', () => {
       expect(appController.getHealth()).toEqual({
         status: 'ok',
-        service: 'simple-site',
+        service: 'simple-siteB',
       });
     });
   });
