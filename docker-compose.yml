@@ -56,6 +56,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: 4000
+      BACKEND_2_URL: ${BACKEND_2_URL:?BACKEND_2_URL must be set in root .env}
       DB_TYPE: postgres
       DB_HOST: db
       DB_PORT: 5432

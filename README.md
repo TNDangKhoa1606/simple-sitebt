@@ -36,6 +36,7 @@ embedded in frontend code.
 Start both applications and the existing PostgreSQL/Redis dependencies:
 
 ```bash
+cp .env.example .env
 docker compose up -d --build
 ```
 
@@ -56,6 +57,7 @@ Local endpoints:
 - frontend: <http://localhost:3001>
 - backend health: <http://localhost:4000/health>
 - backend greeting: <http://localhost:4000/api/hello>
+- Backend #1 to Backend #2 call: <http://localhost:4000/api/backend2>
 
 A browser opened directly on port 3001 does not reproduce Envoy path routing.
 Use `https://<envoy-domain>/?tenant=a` for the full browser-to-backend flow.
