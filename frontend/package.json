@@ -1,0 +1,13 @@
+{
+  "name": "simple-site-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static Tenant A frontend for the EC2 and Envoy lab",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node --check server.js && node --check public/site.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

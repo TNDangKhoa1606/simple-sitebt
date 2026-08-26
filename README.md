@@ -1,96 +1,104 @@
-# Simple Site (NestJS + selectable database + Redis)
+# Tenant A EC2 and Envoy Lab
 
-This site can store visits and messages in **PostgreSQL, MySQL, MongoDB, or
-ClickHouse**. Redis continues to cache the visit count and last-visit time.
+This repository contains two independent Node.js applications for Phase 1:
 
-## Choose a database
-
-Copy `.env.example` to `.env`, then set `DB_TYPE` and the matching connection
-values:
-
-| Database          | `DB_TYPE`    | Default port | Default user |
-| ----------------- | ------------ | -----------: | ------------ |
-| PostgreSQL        | `postgres`   |         5432 | `postgres`   |
-| MySQL             | `mysql`      |         3306 | `root`       |
-| MongoDB           | `mongodb`    |        27017 | `root`       |
-| ClickHouse (HTTP) | `clickhouse` |         8123 | `default`    |
-
-`DB_URL` is optional and supported for MongoDB and ClickHouse. It takes
-precedence over `DB_HOST` and `DB_PORT` for those backends.
-
-`DB_AUTO_CREATE_SCHEMA=true` creates missing tables at startup. PostgreSQL and
-MySQL use relational tables, MongoDB uses collections, and ClickHouse uses
-`MergeTree` tables. Set it to `false` when schema creation is managed outside
-the app. Existing PostgreSQL `POSTGRES_*` variables remain supported when
-`DB_TYPE=postgres`.
-
-## Run with Docker Compose
-
-The repo ships with a production-ready `docker-compose.yml` that starts the web
-container, PostgreSQL, and Redis on the same Compose network.
-
-```bash
-docker compose up --build
+```text
+Browser -> Envoy -> Frontend :3001
+                 -> Backend  :4000
 ```
 
-The web container reads database and Redis settings from `.env`, but the
-Compose file overrides the container-side hostnames to `db` and `redis` so the
-services can resolve each other inside Docker.
+Envoy is intentionally not configured in this repository.
 
-For local `npm start`, keep `.env` pointing at `localhost` for both DB and
-Redis. Compose injects the Docker hostnames at runtime, so the same app code
-works in both environments.
+## Repository layout
 
-Open <http://localhost:3000> after the containers are healthy.
+```text
+.
+├── frontend/              # Static HTML, CSS, and browser JavaScript
+│   ├── public/
+│   ├── server.js
+│   ├── package.json
+│   └── Dockerfile
+├── backend/               # NestJS API, database, and Redis application
+│   ├── src/
+│   ├── test/
+│   ├── package.json
+│   └── Dockerfile
+├── docker-compose.yml
+└── README.md
+```
 
-## Run locally
+The frontend uses `fetch('/api/hello')`. This relative URL keeps the browser on
+the Envoy domain. Envoy routes that path to the backend; no EC2 address is
+embedded in frontend code.
 
-Start the chosen database and Redis, then:
+## Start with Docker Compose
+
+Start both applications and the existing PostgreSQL/Redis dependencies:
 
 ```bash
+docker compose up -d --build
+```
+
+Start only the frontend:
+
+```bash
+docker compose up -d --build frontend
+```
+
+Start the backend and its dependencies:
+
+```bash
+docker compose up -d --build backend
+```
+
+Local endpoints:
+
+- frontend: <http://localhost:3001>
+- backend health: <http://localhost:4000/health>
+- backend greeting: <http://localhost:4000/api/hello>
+
+A browser opened directly on port 3001 does not reproduce Envoy path routing.
+Use `https://<envoy-domain>/?tenant=a` for the full browser-to-backend flow.
+
+## Run without Docker
+
+Frontend:
+
+```bash
+cd frontend
 npm install
-npm run start:dev
+PORT=3001 npm start
 ```
 
-## Endpoints
+Backend (with PostgreSQL and Redis already running):
 
+```bash
+cd backend
+cp .env.example .env
+npm install
+PORT=4000 npm run start:dev
+```
+
+## Backend endpoints
+
+- `GET /health`
+- `GET /api/hello`
 - `GET /api/health`
 - `GET /api/stats`
 - `GET /api/messages`
 - `POST /api/messages` with `{ "text": "hello" }`
-- `GET /api/deploy/check-db` (includes the selected database type)
+- `GET /api/deploy/check-db`
 - `GET /api/deploy/check-redis`
 
-## Tests
+## Build and test
 
 ```bash
-npm test
-npm run test:e2e
+cd frontend && npm run build
+cd ../backend && npm run build
+cd ../backend && npm test -- --runInBand
+cd ../backend && npm run test:e2e -- --runInBand
 ```
 
-The legacy `migration:run` and `migration:revert` scripts remain available for
-existing PostgreSQL deployments. The cross-database startup path uses
-`DB_AUTO_CREATE_SCHEMA` instead.
-
-## Jenkins delivery
-
-This repository uses the shared `hemidi-iac-products-ci` pipeline defined by
-`Jenkinsfile.ci` in `hemidi-iac-products`. The local `.hemidi-ci.json` file is
-the product-specific build contract.
-
-The shared Jenkins pipeline accepts two GitLab webhook events:
-
-- a push to `development` or `staging` builds and pushes an image tagged with
-  the commit SHA, then asks `hemidi-iac-products` to deploy the matching
-  non-production contract; and
-- creation of a semantic-version Release (for example `v1.4.0`) promotes the
-  already-tested commit image to the release tag, then asks
-  `hemidi-iac-products` to create a pending production deployment.
-
-The GitLab project webhook points to the shared Generic Webhook Trigger URL and
-enables **Push events** plus **Release events**. The shared pipeline filters
-pushes to `development` or `staging` and Release actions to `create`.
-
-The Jenkins service account also needs permission to run the
-`hemidi-iac-products` job. That job must contain development, staging, and
-production contracts under `products/simple-site/`.
+When the backend moves to another EC2 instance, the frontend remains unchanged.
+Update the Envoy backend upstream and EC2 networking/security rules so Envoy can
+reach the backend private address on port 4000.

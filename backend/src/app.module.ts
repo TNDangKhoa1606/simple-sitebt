@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { BackendController } from './backend.controller';
 import { DatabaseService } from './database/database.service';
 import { RedisService } from './redis.service';
 
@@ -12,11 +11,8 @@ import { RedisService } from './redis.service';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-    }),
   ],
-  controllers: [AppController],
+  controllers: [AppController, BackendController],
   providers: [AppService, DatabaseService, RedisService],
 })
 export class AppModule {}

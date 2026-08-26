@@ -9,13 +9,36 @@
   <body>
     <div class="ambient"></div>
     <main class="card">
-      <div class="tenant-banner">TENANT B</div>
+      <div class="tenant-banner">TENANT A</div>
       <p class="eyebrow">NESTJS + POSTGRESQL + REDIS</p>
       <h1>TEST25 Simple Site</h1>
       <p class="subtitle">
         Every time this page loads, a visit is persisted to PostgreSQL and
         cached in Redis.
       </p>
+
+      <section class="backend-status" aria-live="polite">
+        <p class="label">Tenant A Backend</p>
+        <h2>Backend API Test</h2>
+        <p class="subtitle small-subtitle">
+          Send a request through the current domain to verify Envoy can reach
+          the backend.
+        </p>
+        <button id="callBackendButton" class="backend-button" type="button">
+          Call Backend API
+        </button>
+        <div class="backend-result" id="backendResult">
+          <p class="backend-connection" id="backendConnection">
+            Backend connection: NOT TESTED
+          </p>
+          <dl id="backendDetails" hidden>
+            <div><dt>Message:</dt><dd id="backendMessage">-</dd></div>
+            <div><dt>Service:</dt><dd id="backendService">-</dd></div>
+            <div><dt>Status:</dt><dd id="backendStatus">-</dd></div>
+          </dl>
+          <p class="backend-error" id="backendError" hidden></p>
+        </div>
+      </section>
 
       <section class="stats" aria-live="polite">
         <div>

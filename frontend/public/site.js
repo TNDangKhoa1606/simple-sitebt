@@ -4,6 +4,42 @@ const statusEl = document.getElementById('status');
 const messageFormEl = document.getElementById('messageForm');
 const messageInputEl = document.getElementById('messageInput');
 const messagesListEl = document.getElementById('messagesList');
+const callBackendButtonEl = document.getElementById('callBackendButton');
+const backendConnectionEl = document.getElementById('backendConnection');
+const backendDetailsEl = document.getElementById('backendDetails');
+const backendMessageEl = document.getElementById('backendMessage');
+const backendServiceEl = document.getElementById('backendService');
+const backendStatusEl = document.getElementById('backendStatus');
+const backendErrorEl = document.getElementById('backendError');
+
+async function loadBackendMessage() {
+  callBackendButtonEl.disabled = true;
+  backendConnectionEl.textContent = 'Backend connection: TESTING...';
+  backendDetailsEl.hidden = true;
+  backendErrorEl.hidden = true;
+
+  try {
+    const response = await fetch('/api/hello');
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    backendConnectionEl.textContent = 'Backend connection: OK';
+    backendMessageEl.textContent = data.message;
+    backendServiceEl.textContent = data.service;
+    backendStatusEl.textContent = data.status;
+    backendDetailsEl.hidden = false;
+  } catch (error) {
+    backendConnectionEl.textContent = 'Backend connection: FAILED';
+    backendErrorEl.textContent = error.message;
+    backendErrorEl.hidden = false;
+  } finally {
+    callBackendButtonEl.disabled = false;
+  }
+}
+
+callBackendButtonEl.addEventListener('click', loadBackendMessage);
 
 async function loadStats() {
   try {
