@@ -5,7 +5,7 @@ export class BackendController {
   @Get('api/hello')
   getHello() {
     return {
-      message: 'Hello from BE EC2 #1',
+      message: 'Hello from BE EC2&#x20;',
       service: 'backend',
       status: 'ok',
     };
