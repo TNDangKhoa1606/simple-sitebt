@@ -5,7 +5,7 @@ describe('BackendController', () => {
 
   it('returns the Tenant A greeting', () => {
     expect(controller.getHello()).toEqual({
-      message: 'Hello from Tenant A backend',
+      message: 'Hello from BE EC2 #1',
       service: 'backend',
       status: 'ok',
     });
