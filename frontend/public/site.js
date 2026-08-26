@@ -15,6 +15,14 @@ const callBackend2ButtonEl = document.getElementById('callBackend2Button');
 const backend2ConnectionEl = document.getElementById('backend2Connection');
 const backend2JsonEl = document.getElementById('backend2Json');
 const backend2ErrorEl = document.getElementById('backend2Error');
+const callLocalBackendButtonEl = document.getElementById(
+  'callLocalBackendButton',
+);
+const localBackendConnectionEl = document.getElementById(
+  'localBackendConnection',
+);
+const localBackendJsonEl = document.getElementById('localBackendJson');
+const localBackendErrorEl = document.getElementById('localBackendError');
 
 async function loadBackendMessage() {
   callBackendButtonEl.disabled = true;
@@ -76,6 +84,39 @@ async function loadBackend2() {
 }
 
 callBackend2ButtonEl.addEventListener('click', loadBackend2);
+
+async function loadLocalBackend() {
+  callLocalBackendButtonEl.disabled = true;
+  localBackendConnectionEl.textContent =
+    'Local backend connection: TESTING...';
+  localBackendJsonEl.hidden = true;
+  localBackendErrorEl.hidden = true;
+
+  try {
+    const response = await fetch('/api/local/hello');
+    const data = await response.json();
+
+    if (!response.ok) {
+      localBackendJsonEl.textContent = JSON.stringify(data, null, 2);
+      localBackendJsonEl.hidden = false;
+      throw new Error(
+        data?.message ?? `Request failed with status ${response.status}`,
+      );
+    }
+
+    localBackendConnectionEl.textContent = 'Local backend connection: OK';
+    localBackendJsonEl.textContent = JSON.stringify(data, null, 2);
+    localBackendJsonEl.hidden = false;
+  } catch (error) {
+    localBackendConnectionEl.textContent = 'Local backend connection: FAILED';
+    localBackendErrorEl.textContent = error.message;
+    localBackendErrorEl.hidden = false;
+  } finally {
+    callLocalBackendButtonEl.disabled = false;
+  }
+}
+
+callLocalBackendButtonEl.addEventListener('click', loadLocalBackend);
 
 async function loadStats() {
   try {
