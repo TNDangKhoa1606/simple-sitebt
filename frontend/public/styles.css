@@ -94,8 +94,14 @@ h1 {
   font-size: 1.2rem;
 }
 
-.backend-button {
+.backend-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
   margin-top: 0.8rem;
+}
+
+.backend-button {
   border: 0;
   border-radius: 10px;
   padding: 0.72rem 1.05rem;
@@ -145,6 +151,20 @@ h1 {
 .backend-error {
   margin: 0.5rem 0 0;
   color: #a52a2a;
+  overflow-wrap: anywhere;
+}
+
+.backend-json {
+  margin: 0.7rem 0 0;
+  max-height: 24rem;
+  overflow: auto;
+  border-radius: 10px;
+  padding: 0.8rem;
+  background: rgba(31, 29, 27, 0.92);
+  color: #fff;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 

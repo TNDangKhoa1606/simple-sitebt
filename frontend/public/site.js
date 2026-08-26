@@ -11,6 +11,10 @@ const backendMessageEl = document.getElementById('backendMessage');
 const backendServiceEl = document.getElementById('backendService');
 const backendStatusEl = document.getElementById('backendStatus');
 const backendErrorEl = document.getElementById('backendError');
+const callBackend2ButtonEl = document.getElementById('callBackend2Button');
+const backend2ConnectionEl = document.getElementById('backend2Connection');
+const backend2JsonEl = document.getElementById('backend2Json');
+const backend2ErrorEl = document.getElementById('backend2Error');
 
 async function loadBackendMessage() {
   callBackendButtonEl.disabled = true;
@@ -40,6 +44,38 @@ async function loadBackendMessage() {
 }
 
 callBackendButtonEl.addEventListener('click', loadBackendMessage);
+
+async function loadBackend2() {
+  callBackend2ButtonEl.disabled = true;
+  backend2ConnectionEl.textContent = 'Backend #2 connection: TESTING...';
+  backend2JsonEl.hidden = true;
+  backend2ErrorEl.hidden = true;
+
+  try {
+    const response = await fetch('/api/backend2');
+    const data = await response.json();
+
+    if (!response.ok) {
+      backend2JsonEl.textContent = JSON.stringify(data, null, 2);
+      backend2JsonEl.hidden = false;
+      throw new Error(
+        data?.message ?? `Request failed with status ${response.status}`,
+      );
+    }
+
+    backend2ConnectionEl.textContent = 'Backend #2 connection: OK';
+    backend2JsonEl.textContent = JSON.stringify(data, null, 2);
+    backend2JsonEl.hidden = false;
+  } catch (error) {
+    backend2ConnectionEl.textContent = 'Backend #2 connection: FAILED';
+    backend2ErrorEl.textContent = error.message;
+    backend2ErrorEl.hidden = false;
+  } finally {
+    callBackend2ButtonEl.disabled = false;
+  }
+}
+
+callBackend2ButtonEl.addEventListener('click', loadBackend2);
 
 async function loadStats() {
   try {

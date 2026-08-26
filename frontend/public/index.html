@@ -24,9 +24,14 @@
           Send a request through the current domain to verify Envoy can reach
           the backend.
         </p>
-        <button id="callBackendButton" class="backend-button" type="button">
-          Call Backend API
-        </button>
+        <div class="backend-actions">
+          <button id="callBackendButton" class="backend-button" type="button">
+            Call Backend #1
+          </button>
+          <button id="callBackend2Button" class="backend-button" type="button">
+            Call Backend #2
+          </button>
+        </div>
         <div class="backend-result" id="backendResult">
           <p class="backend-connection" id="backendConnection">
             Backend connection: NOT TESTED
@@ -37,6 +42,13 @@
             <div><dt>Status:</dt><dd id="backendStatus">-</dd></div>
           </dl>
           <p class="backend-error" id="backendError" hidden></p>
+        </div>
+        <div class="backend-result" id="backend2Result">
+          <p class="backend-connection" id="backend2Connection">
+            Backend #2 connection: NOT TESTED
+          </p>
+          <pre class="backend-json" id="backend2Json" hidden></pre>
+          <p class="backend-error" id="backend2Error" hidden></p>
         </div>
       </section>
 
